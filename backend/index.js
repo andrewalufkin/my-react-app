@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mysql = require('mysql2');
+const bodyParser = require('body-parser');
 const { readFile } = require('fs').promises;
 const { addUser } = require('./userUtils');
 const app = express();
 
+app.use(bodyParser.json());
 
 //Connection details
 const connection = mysql.createConnection({
@@ -27,25 +29,99 @@ connection.connect((err) => {
     console.log('Connected to the database successfully.');
 });
 
-app.use(express.static(path.join(__dirname, 'my-react-app/build')));
+//Serve the front end react app from within the backend server. comment out while testing the 
+//front end and back end separately
+//app.use(express.static(path.join(__dirname, '../my-react-app/build')));
 
-//API endpoints go here
-addUser(connection, 'Andrewalufkin', 'legos555');
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'my-react-app/build', 'index.html'));
-})
-
+//Listen on port 3000
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log('Server is running on port ${port}');
 });
 
-connection.end((err) => {
-    if (err) {
-      console.error('Error closing the connection:', err);
-      return;
+//API endpoints go here
+app.post('/register', (req, res) => {
+  const { username, password } = req.body;
+
+  const checkUsernameQuery = 'SELECT * FROM users WHERE username = ?';
+  connection.query(checkUsernameQuery, [username], (error, results) => {
+    if (error) {
+      console.error('Error checking username:', error);
+      return res.status(500).json({ message: 'Internal server error' });
     }
-    console.log('Connection closed.');
+
+    // If a row with the given username is found, it means the username is already taken
+    if (results.length > 0) {
+      console.log('Username already exists.');
+      return res.status(409).json({ message: 'Username already exists' });
+    } else {
+      // Insert user data into the database
+      const sql = 'INSERT INTO users (username, password, registration_date) VALUES (?, ?, NOW())';
+      connection.query(sql, [username, password], (err, result) => {
+        if (err) {
+          console.error('Error registering user:', err);
+          return res.status(500).json({ error: 'An error occurred while registering user.' });
+        }
+
+        console.log('User registered successfully:', result);
+        return res.status(200).json({ message: 'User registered successfully.' });
+      });
+    }
   });
+});
+
+// Route for user login
+app.post('/login', (req, res) => {
+  console.log('Backend received login request.');
+  const { username, password } = req.body;
+
+  // Query the database to check if the user exists and the password is correct
+  const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
+  connection.query(sql, [username, password], (err, result) => {
+    if (err) {
+      console.error('Error logging in:', err);
+      return res.status(500).json({ error: 'An error occurred while logging in.' });
+    }
+
+    if (result.length === 0) {
+      return res.status(401).json({ error: 'Invalid username or password.' });
+    }
+
+    console.log('User logged in successfully:', result[0]);
+    return res.status(200).json({ message: 'User logged in successfully.' });
+  });
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../my-react-app/build', 'index.html'));
+});
+
+// Handle server termination
+
+let closing = false;
+
+const closeConnection = () => {
+  if (!closing) {
+    closing = true;
+    console.log('Closing database connection...');
+    connection.end((err) => {
+      if (err) {
+        console.error('Error closing the connection:', err);
+      } else {
+        console.log('Connection closed.');
+      }
+      process.exit(0);
+    });
+  }
+};
+
+process.on('SIGINT', () => {
+  console.log('\nReceived SIGINT (Ctrl-C)');
+  closeConnection();
+});
+
+process.on('exit', () => {
+  console.log('Exiting the process.');
+  closeConnection();
+})
   
