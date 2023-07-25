@@ -4,8 +4,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 12
-    commands:
-      - npm install  # Install frontend dependencies
 
   pre_build:
     commands:
@@ -17,6 +15,15 @@ phases:
       - cd ../frontend  # Change back to the frontend folder
       - npm install # Install frontend dependencies
       - npm run build  # Build the frontend
+
+  post_build:
+    commands:
+      # Add the commands to deploy the backend to EC2 using CodeDeploy
+      # For example, you can use the AWS CLI to copy the backend files to your EC2 instance
+      - aws deploy create-deployment --application-name simple-web-app --deployment-group-name deployment-group-1 --s3-location bucket=simple-web-app-bucket-1,bundleType=zip,key=frontend/build.zip
+      - cd ../backend # Change back to the backend folder
+      - zip -r backend.zip ./*  # Create a zip file of the backend code
+      - aws deploy create-deployment --application-name simple-web-app --deployment-group-name deployment-group-1 --s3-location bucket=simple-web-app-bucket-1,bundleType=zip,key=backend.zip
 
 artifacts:
   files:

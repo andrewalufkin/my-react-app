@@ -31,7 +31,7 @@ connection.connect((err) => {
 
 //Serve the front end react app from within the backend server. comment out while testing the 
 //front end and back end separately
-//app.use(express.static(path.join(__dirname, '../my-react-app/build')));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //Listen on port 3000
 const port = process.env.PORT || 3000;
@@ -93,7 +93,7 @@ app.post('/login', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../my-react-app/build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 // Handle server termination
