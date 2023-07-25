@@ -16,8 +16,6 @@ phases:
     commands:
       - cd ../frontend  # Change back to the frontend folder
       - npm run build  # Build the frontend
-      - cd ../backend  # Change back to the backend folder
-      - npm run build  # Build the backend
 
 artifacts:
   files:
