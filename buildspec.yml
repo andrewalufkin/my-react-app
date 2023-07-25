@@ -15,6 +15,7 @@ phases:
   build:
     commands:
       - cd ../frontend  # Change back to the frontend folder
+      - npm install # Install frontend dependencies
       - npm run build  # Build the frontend
 
 artifacts:
