@@ -23,3 +23,9 @@ artifacts:
   files:
     - backend/**/*  # Include backend build artifacts
     - frontend/build/**/*  # Include frontend build artifacts
+
+# Add the ArtifactsOverride section
+ArtifactsOverride:
+  files:
+    - backend/**/*  # Include backend build artifacts
+    - frontend/build/**/*  # Include frontend build artifacts
