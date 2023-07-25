@@ -16,13 +16,6 @@ phases:
       - npm install # Install frontend dependencies
       - npm run build  # Build the frontend
 
-# Add the deploy phase for CodeDeploy
-  deploy:
-    commands:
-      # Add commands to deploy using CodeDeploy here
-      #- aws deploy create-deployment --application-name simple-web-app --deployment-group-name deployment-group-1 --s3-location bucket=codepipeline-us-east-1-351157913410,bundleType=zip,key=frontend/build.zip
-      - aws deploy create-deployment --application-name simple-web-app --deployment-group-name deployment-group-1 --s3-location bucket=codepipeline-us-east-1-351157913410,bundleType=zip,key=backend.zip
-
 artifacts:
   files:
     - backend/**/*  # Include backend build artifacts
