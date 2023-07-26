@@ -1,0 +1,15 @@
+version: 0.0
+os: linux
+files:
+  - source: frontend/build   # Path to your built React frontend files
+    destination: /var/www/html   # Destination on the EC2 instance where frontend files should be copied
+
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300   # Set an appropriate timeout for your installation script
+      runas: nodejs  # Set the appropriate user to run the installation script
+  ApplicationStart:
+    - location: scripts/start_server.sh
+      timeout: 300   # Set an appropriate timeout for your server start script
+      runas: nodejs  # Set the appropriate user to run the server start script
