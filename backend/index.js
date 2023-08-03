@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const { readFile } = require('fs').promises;
 const { addUser } = require('./userUtils');
 const app = express();
+const fs = require('fs');
+const closeConnection = require('./closeConnection');
 
 app.use(bodyParser.json());
 
@@ -18,6 +20,10 @@ const connection = mysql.createConnection({
     database: process.env.RDS_DATABASE,
     port: 3306
 });
+
+//Write the pid to app.pid file so that application_stop can stop this gracefully
+fs.writeFileSync('app.pid', process.pid.toString());
+console.log('Process ID (PID) has been written to app.pid file:', process.pid);
 
 //Connect to the RDS database.
 connection.connect((err) => {
@@ -98,30 +104,13 @@ app.get('*', (req, res) => {
 
 // Handle server termination
 
-let closing = false;
-
-const closeConnection = () => {
-  if (!closing) {
-    closing = true;
-    console.log('Closing database connection...');
-    connection.end((err) => {
-      if (err) {
-        console.error('Error closing the connection:', err);
-      } else {
-        console.log('Connection closed.');
-      }
-      process.exit(0);
-    });
-  }
-};
-
 process.on('SIGINT', () => {
   console.log('\nReceived SIGINT (Ctrl-C)');
-  closeConnection();
+  closeConnection(connection);
 });
 
 process.on('exit', () => {
   console.log('Exiting the process.');
-  closeConnection();
-})
+  closeConnection(connection);
+});
   
