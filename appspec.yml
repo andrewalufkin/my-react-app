@@ -8,8 +8,12 @@ hooks:
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300   # Set an appropriate timeout for your installation script
-      runas: nodejs  # Set the appropriate user to run the installation script
+      runas: ec2-user  # Set the appropriate user to run the installation script
   ApplicationStart:
     - location: scripts/start_server.sh
       timeout: 300   # Set an appropriate timeout for your server start script
-      runas: nodejs  # Set the appropriate user to run the server start script
+      runas: ec2-user  # Set the appropriate user to run the server start script
+  ApplicationStop:
+    - location: scripts/application_stop.sh
+      timeout: 300
+      runas: ec2-user
