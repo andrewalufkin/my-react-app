@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: frontend/build   # Path to your built React frontend files
+  - source: / 
     destination: /var/www/html   # Destination on the EC2 instance where frontend files should be copied
 
 hooks:
@@ -15,5 +15,9 @@ hooks:
       runas: ec2-user  # Set the appropriate user to run the server start script
   ApplicationStop:
     - location: scripts/application_stop.sh
+      timeout: 300
+      runas: ec2-user
+  ValidateService:
+    - location: scripts/validate_service.sh
       timeout: 300
       runas: ec2-user
