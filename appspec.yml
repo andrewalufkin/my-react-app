@@ -9,7 +9,7 @@ files:
 
 hooks:
   ApplicationStart:
-    - location: scripts/start_web_server.sh
+    - location: scripts/scripts.start_web_server.sh
       timeout: 300
       runas: ec2-user
   ApplicationStop:
