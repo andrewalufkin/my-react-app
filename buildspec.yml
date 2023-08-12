@@ -18,6 +18,7 @@ phases:
 
 artifacts:
   files:
+    - appspec.yml
     - backend/**/*  # Include backend build artifacts
     - frontend/build/**/*  # Include frontend build artifacts
 
