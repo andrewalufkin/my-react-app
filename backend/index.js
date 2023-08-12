@@ -21,10 +21,6 @@ const connection = mysql.createConnection({
     port: 3306
 });
 
-//Write the pid to app.pid file so that application_stop can stop this gracefully
-fs.writeFileSync('app.pid', process.pid.toString());
-console.log('Process ID (PID) has been written to app.pid file:', process.pid);
-
 //Connect to the RDS database.
 connection.connect((err) => {
     if(err){
@@ -40,7 +36,7 @@ connection.connect((err) => {
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //Listen on port 3000
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 80 ;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
