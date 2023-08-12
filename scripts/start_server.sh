@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Full path to the Node.js executable
-NODE_PATH=$(which node)
+NODE_PATH=$(which node)  # Get the full path to the Node.js executable using which command
 
-# Change to the backend destination directory
-cd /home/ec2-user/backend
-
-# Start the Node.js server using the full path to the executable
-$NODE_PATH .
+if [ -x "$NODE_PATH" ]; then
+  cd /home/ec2-user/backend
+  $NODE_PATH .
+else
+  echo "Node.js executable not found. Make sure it's in the PATH."
+fi
