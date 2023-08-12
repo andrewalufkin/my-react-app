@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: / 
+  - source: /frontend/build
     destination: /var/www/html   # Destination on the EC2 instance where frontend files should be copied
 
 hooks:

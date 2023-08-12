@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /var/www/html   # Change to the frontend destination directory
-npm start          # Or any other command you use to start your Node.js server
+cd /home/ec2-user/backend/build   # Change to the backend destination directory
+npm start          # Start the Node.js server
