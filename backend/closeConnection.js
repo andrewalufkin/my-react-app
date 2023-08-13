@@ -15,4 +15,4 @@ function closeConnection(connection) {
     }
   };
 
-  
+export default closeConnection;
