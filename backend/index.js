@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
@@ -10,6 +11,7 @@ const fs = require('fs');
 const closeConnection = require('./closeConnection');
 
 app.use(bodyParser.json());
+app.use(cors);
 
 //Connection details
 const connection = mysql.createConnection({
