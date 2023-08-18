@@ -36,8 +36,7 @@ connection.connect((err) => {
     console.log('Connected to the database successfully.');
 });
 
-//Serve the front end react app from within the backend server. comment out while testing the 
-//front end and back end separately
+//Serve the front end react app from within the backend server. 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
 //Listen on port 3000
@@ -47,6 +46,9 @@ app.listen(port, () => {
 });
 
 //API endpoints go here
+
+app.options('*', cors()); // Allow preflight requests for all routes
+
 app.post('/register', (req, res) => {
   const { username, password } = req.body;
 
