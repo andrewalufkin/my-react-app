@@ -11,7 +11,10 @@ const fs = require('fs');
 const closeConnection = require('./closeConnection');
 
 app.use(bodyParser.json());
-app.use(cors);
+app.use(cors({
+  origin: 'http://ec2-3-92-228-150.compute-1.amazonaws.com:3000',
+  credentials: true, // Include cookies in cross-origin requests if needed
+}));
 
 //Connection details
 const connection = mysql.createConnection({
