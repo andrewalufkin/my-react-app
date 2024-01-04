@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://3.92.228.150:3000'
+    baseURL: 'http://localhost:8000'
+    //baseURL: 'http://3.92.228.150:8000'
 });
 
 export default api;
@@ -9,7 +10,7 @@ export default api;
 export const registerUser = async (username, password) => {
     console.log('RegisterUser called.')
     try {
-      const response = await api.post('/register', {
+      const response = await api.post('/auth/register', {
         username,
         password,
       });
@@ -25,7 +26,7 @@ export const registerUser = async (username, password) => {
   
   export const loginUser = async (username, password) => {
     try {
-      const response = await api.post('/login', {
+      const response = await api.post('/auth/login', {
         username,
         password,
       });
@@ -37,4 +38,42 @@ export const registerUser = async (username, password) => {
       throw error; // Rethrow the error to handle it in the component that called this function
     }
   };
+
+  export const searchUsers = async (searchTerm) => {
+    try {
+        const response = await api.get('/user/search', { params: { searchTerm } });
+        return response.data;
+    } catch (error) {
+        console.error('Error searching users:', error);
+        return [];
+    }
+};
+
+export const followUser = async (followerId, followedId) => {
+    try {
+        const response = await api.post('/user/follow', { followerId, followedId });
+        return response.data;
+    } catch (error) {
+        console.error('Error following user:', error);
+    }
+};
+
+export const createPost = async (userId, content) => {
+    try {
+        const response = await api.post('/user/post', { userId, content });
+        return response.data;
+    } catch (error) {
+        console.error('Error creating post:', error);
+    }
+};
+
+export const fetchFeed = async (userId) => {
+    try {
+        const response = await api.get('/user/feed', { params: { userId } });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching feed:', error);
+        return [];
+    }
+};
   
