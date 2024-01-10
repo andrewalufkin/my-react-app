@@ -1,0 +1,112 @@
+/* Ensure that the html and body tags take full viewport height and width, and have no margin or padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Apply box-sizing to all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* Extend the main dashboard container to the full width */
+.dashboard {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    color: #ecf0f1; /* Soft off-white */
+    /* Other styles remain unchanged */
+}
+
+/* Extend background color for dashboard controls and feed section to cover any potential overflow */
+.dashboardControls{
+    width: 30%
+}
+
+.feedSection {
+    width: 30%;
+    max-height: 500px; /* Adjust this value based on your design needs */
+    overflow-y: auto;  /* Enables vertical scrolling */
+    /* Other styles remain unchanged */
+}
+
+/* Feed Section */
+.feedSection {
+    flex: 2; /* Takes double the space of the dashboard controls */
+    background-color: #8797AF; /* Cool Gray Background */
+    padding: 20px;
+}
+
+/* Reusable button styling */
+.button {
+    background-color: #34495e; /* Darker shade of blue-gray */
+    color: #ecf0f1;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.button:hover {
+    background-color: #4C669F;
+}
+
+/* Input and Textarea Styling */
+.input,
+.textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.textarea {
+    height: 100px; /* Fixed height for textarea */
+}
+
+/* Individual Post and User Item Styling */
+.userItem,
+.postItem {
+    color: #ecf0f1; /* Lighter text color for better contrast */
+    background-color: #34495e; /* Darker shade of blue-gray */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Theme Toggle Button */
+.themeToggle {
+    background-color: #16a085; /* A distinct color for the customize button */
+    color: #ecf0f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.themeToggle:hover {
+    background-color: #1abc9c;
+}
+
+/* Logout Button - To make it stand out as a different action */
+.logoutButton {
+    background-color: #e74c3c; /* A warm red color to indicate a logout action */
+    color: #ecf0f1;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.logoutButton:hover {
+    background-color: #c0392b;
+}

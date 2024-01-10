@@ -1,72 +1,56 @@
+/* Reset default margin and padding and prevent overflow */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling */
+    height: 100%;
+    min-width: 100vw; /* Ensure minimum width is viewport width */
+    min-height: 100vh; /* Ensure minimum height is viewport height */
+    box-sizing: border-box;
+}
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* Set box-sizing to border-box for all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #e9eff9 30%, #eff2f6 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
+.loginPageContainer {
+    background-color: #0A3A62; /* Dark Blue Background */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card {
-  background: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 40px;
-  width: 300px;
-}
-
-h2 {
-  text-align: center;
-  color: #333;
-}
-
-.input-field {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.button-primary {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  margin: 10px 0;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button-primary:hover {
-  background-color: #45a049;
-}
-
-.button-secondary {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  margin: 10px 0;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button-secondary:hover {
-  background-color: #d32f2f;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .card {
-    width: 80%;
+    background-color: #8797AF; /* Cool Gray Background */
     padding: 20px;
-  }
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
 }
+
+.title {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.registerButton {
+    background-color: #4C669F; /* A complementary color for the button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    font-size: 1em;
+}
+
+.registerButton:hover {
+    background-color: #3B5480;
+}
+

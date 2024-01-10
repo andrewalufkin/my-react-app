@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { searchUsers, followUser, createPost, fetchFeed } from './services/api';
+import styles from './DashBoard.module.css'
 
 const Dashboard = ({ onLogout, userId }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +26,6 @@ const Dashboard = ({ onLogout, userId }) => {
     createPost(userId, postContent);
   };
 
-  // Corrected loadFeed function
   const loadFeed = async () => {
     try {
       const response = await fetchFeed(userId);
@@ -42,8 +42,8 @@ const Dashboard = ({ onLogout, userId }) => {
     }, [userId]);
 
     return (
-      <div className='dashboard' style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, marginRight: '20px' }}>
+      <div className={styles.dashboard}>
+        <div className={styles.dashboardControls}>
           <h1>Dashboard</h1>
   
           {/* Search Bar */}
@@ -52,16 +52,16 @@ const Dashboard = ({ onLogout, userId }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search users"
-            style={{ width: '100%', marginBottom: '10px' }}
+            className={styles.input}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button onClick={handleSearch} className={styles.button}>Search</button>
   
           {/* Search Results */}
           <div>
             {searchResults.map(user => (
-              <div key={user.id}>
-                {user.username} 
-                <button onClick={() => handleFollow(user.id)}>Follow</button>
+              <div key={user.id} className={styles.userItem}>
+                {user.username}
+                <button onClick={() => handleFollow(user.id)} className={styles.button}>Follow</button>
               </div>
             ))}
           </div>
@@ -71,21 +71,20 @@ const Dashboard = ({ onLogout, userId }) => {
             value={postContent}
             onChange={(e) => setPostContent(e.target.value)}
             placeholder="What's on your mind?"
-            style={{ width: '100%', marginBottom: '10px' }}
+            className={styles.textarea}
           />
-          <button onClick={handleCreatePost}>Post</button>
-  
-          <button onClick={onLogout}>Log Out</button>
+          <button onClick={handleCreatePost} className={styles.button}>Post</button>
+          <button onClick={onLogout} className={styles.logoutButton}>Log Out</button>
         </div>
   
-        {/* User's Feed */}
-        <div style={{ flex: 2, overflow: 'auto', height: 'calc(100vh - 20px)' }}>
-          {feed.map(post => (
-            <div key={post.id} style={{ marginBottom: '10px' }}>
-              <p>{post.content}</p>
-            </div>
-          ))}
-        </div>
+          {/* User's Feed */}
+          <div className={styles.feedSection}>
+            {[...feed].reverse().map(post => (
+              <div key={post.id} className={styles.postItem}>
+                <p>{post.content}</p>
+              </div>
+            ))}
+          </div>
       </div>
     );
   };
