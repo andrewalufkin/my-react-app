@@ -14,11 +14,32 @@ html, body {
 
 /* Extend the main dashboard container to the full width */
 .dashboard {
+    font-family: 'Arial', sans-serif;
     display: flex;
     width: 100vw;
     min-height: 100vh;
     color: #ecf0f1; /* Soft off-white */
     /* Other styles remain unchanged */
+}
+
+.homeButton{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+
+  /* Additional hover effect */
+  &:hover {
+    background-color: #45a049;
+  }
 }
 
 /* Extend background color for dashboard controls and feed section to cover any potential overflow */
@@ -28,13 +49,8 @@ html, body {
 
 .feedSection {
     width: 30%;
-    max-height: 500px; /* Adjust this value based on your design needs */
+    max-height: 100vh; /* Adjust this value based on your design needs */
     overflow-y: auto;  /* Enables vertical scrolling */
-    /* Other styles remain unchanged */
-}
-
-/* Feed Section */
-.feedSection {
     flex: 2; /* Takes double the space of the dashboard controls */
     background-color: #8797AF; /* Cool Gray Background */
     padding: 20px;
@@ -81,21 +97,6 @@ html, body {
     margin-bottom: 10px;
 }
 
-/* Theme Toggle Button */
-.themeToggle {
-    background-color: #16a085; /* A distinct color for the customize button */
-    color: #ecf0f1;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    font-size: 1rem;
-}
-
-.themeToggle:hover {
-    background-color: #1abc9c;
-}
-
 /* Logout Button - To make it stand out as a different action */
 .logoutButton {
     background-color: #e74c3c; /* A warm red color to indicate a logout action */
@@ -110,3 +111,73 @@ html, body {
 .logoutButton:hover {
     background-color: #c0392b;
 }
+
+/* Styles for the reactions section */
+.reactions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap between elements */
+  }
+  
+  /* Styles for like and dislike buttons */
+  .likeButton, .dislikeButton {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .dislikeButton {
+    background-color: #f44336; /* Red background */
+  }
+  
+  .likeButton:hover, .dislikeButton:hover {
+    background-color: #555; /* Darker background on hover */
+  }
+  
+  /* Styles for undo button */
+  .undoButton {
+    background-color: #008CBA; /* Blue background */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .undoButton:hover {
+    background-color: #555; /* Darker background on hover */
+  }
+  
+  /* Optional spacing */
+  .space {
+    display: inline-block;
+    width: 20px; /* Adjust width for desired spacing */
+  }
+  
+  /* Styles for the reaction information */
+  .reactionInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust the gap between elements */
+  }
+  
+  /* Styles for like/dislike count text */
+  .reactionInfo span {
+    font-size: 16px;
+  }
+  

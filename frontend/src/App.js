@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './LoginPage';
-import RegistrationPage from './RegistrationPage'; // Import the RegistrationPage component
+import RegistrationPage from './RegistrationPage'; 
+import HomePage from './HomePage';
 import Dashboard from './DashBoard';
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
         <Route 
           path="/dashboard"
           element={isLoggedIn ? <Dashboard onLogout={handleLogOut} userId={userId}/> : <Navigate replace to="/" />}
+        />
+        {/* HomePage Route */}
+        <Route 
+          path="/home"
+          element={isLoggedIn ? <HomePage userId={userId} /> : <Navigate replace to="/" />}
         />
         {/* Redirect any other path to the main page */}
         <Route path="*" element={<Navigate to="/" />} />

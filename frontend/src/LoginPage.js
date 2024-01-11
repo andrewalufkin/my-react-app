@@ -26,7 +26,7 @@ const LoginPage = ({onLogin}) => {
     return (
         <div className={styles.loginPageContainer}>
             <div className={styles.card}>
-                <h1 className={styles.title}>LoginPage</h1>
+                <h1 className={styles.title}>Welcome to my app!</h1>
                 <LoginForm onLogin={handleLogin} />
                 <button onClick={handleRegisterClick} className={styles.registerButton}>
                     Register

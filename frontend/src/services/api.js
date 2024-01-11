@@ -8,45 +8,45 @@ const api = axios.create({
 export default api;
 
 export const registerUser = async (username, password) => {
-    console.log('RegisterUser called.')
-    try {
-      const response = await api.post('/auth/register', {
-        username,
-        password,
-      });
-  
-      return response.data; // The response.data will contain the server's response (e.g., success message or error)
-    } catch (error) {
-      console.log('Caught an error ' + error.response.status);
-      // Handle errors here (e.g., show error messages to the user)
-      console.error('Error while registering user:', error);
-      throw error; // Rethrow the error to handle it in the component that called this function
-    }
-  };
-  
-  export const loginUser = async (username, password) => {
-    try {
-      const response = await api.post('/auth/login', {
-        username,
-        password,
-      });
-  
-      return response.data; // The response.data will contain the server's response (e.g., user data or error)
-    } catch (error) {
-      // Handle errors here (e.g., show error messages to the user)
-      console.error('Error while logging in:', error);
-      throw error; // Rethrow the error to handle it in the component that called this function
-    }
-  };
+  console.log('RegisterUser called.')
+  try {
+    const response = await api.post('/auth/register', {
+      username,
+      password,
+    });
 
-  export const searchUsers = async (searchTerm) => {
-    try {
-        const response = await api.get('/user/search', { params: { searchTerm } });
-        return response.data;
-    } catch (error) {
-        console.error('Error searching users:', error);
-        return [];
-    }
+    return response.data; // The response.data will contain the server's response (e.g., success message or error)
+  } catch (error) {
+    console.log('Caught an error ' + error.response.status);
+    // Handle errors here (e.g., show error messages to the user)
+    console.error('Error while registering user:', error);
+    throw error; // Rethrow the error to handle it in the component that called this function
+  }
+};
+  
+export const loginUser = async (username, password) => {
+  try {
+    const response = await api.post('/auth/login', {
+      username,
+      password,
+    });
+
+    return response.data; // The response.data will contain the server's response (e.g., user data or error)
+  } catch (error) {
+    // Handle errors here (e.g., show error messages to the user)
+    console.error('Error while logging in:', error);
+    throw error; // Rethrow the error to handle it in the component that called this function
+  }
+};
+
+export const searchUsers = async (searchTerm) => {
+  try {
+      const response = await api.get('/user/search', { params: { searchTerm } });
+      return response.data;
+  } catch (error) {
+      console.error('Error searching users:', error);
+      return [];
+  }
 };
 
 export const followUser = async (followerId, followedId) => {
@@ -76,4 +76,36 @@ export const fetchFeed = async (userId) => {
         return [];
     }
 };
+
+// Function to send a like to a specific post
+export const likePost = async (userId, postId) => {
+  try {
+      const response = await api.post('/user/post/like', { userId, postId });
+      return response.data;
+  } catch (error) {
+      console.error('Error liking post:', error);
+  }
+};
+
+// Function to send a dislike to a specific post
+export const dislikePost = async (userId, postId) => {
+  try {
+      const response = await api.post('/user/post/dislike', { userId, postId });
+      return response.data;
+  } catch (error) {
+      console.error('Error disliking post:', error);
+  }
+};
+
+// Function to undo a like or dislike
+export const undoReaction = async (userId, postId, reactionType) => {
+  try {
+      const response = await api.post('/user/post/undoReaction', { userId, postId, reactionType });
+      return response.data;
+  } catch (error) {
+      console.error(`Error undoing ${reactionType}:`, error);
+  }
+};
+
+
   

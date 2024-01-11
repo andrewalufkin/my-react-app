@@ -1,0 +1,26 @@
+.homePage {
+    /* General styles for HomePage */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .dashboardButton {
+    background-color: #008CBA; /* Blue */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  
+    /* Additional hover effect */
+    &:hover {
+      background-color: #007ba7;
+    }
+  }
+  
