@@ -1,8 +1,9 @@
 import axios from 'axios';
 
+ const baseURL = process.env.REACT_APP_API_BASE_URL || "54.211.142.255:3000";
+
 const api = axios.create({
-    baseURL: 'http://localhost:8000'
-    //baseURL: 'http://3.92.228.150:8000'
+    baseURL: baseURL
 });
 
 export default api;
