@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_URL="http://ec2-54-211-142-255.compute-1.amazonaws.com:8000"
+APP_URL="http://ec2-54-211-142-255.compute-1.amazonaws.com:3000"
 
 # Perform a simple health check to verify that the application is running and responding
 HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
