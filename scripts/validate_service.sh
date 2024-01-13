@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Replace "http://localhost:3000" with the actual URL of your application or service
-APP_URL="ec2-3-92-228-150.compute-1.amazonaws.com"
+APP_URL="ec2-54-211-142-255.compute-1.amazonaws.com"
 
 # Perform a simple health check to verify that the application is running and responding
 HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
