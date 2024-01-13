@@ -30,11 +30,6 @@ app.use(cors({
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back the index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
-});
 
 //Listen on port 8000
 const port = process.env.PORT || 8000 ;
@@ -54,6 +49,14 @@ app.options('*', cors()); // Allow preflight requests for all routes
 
 app.use('/auth', authRoutes); // Mount authentication routes under /auth
 app.use('/user', userRoutes); // Mount user routes under /user
+
+
+
+// The "catchall" handler: for any request that doesn't
+// match one above, send back the index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+});
 
 // Handle server termination
 
