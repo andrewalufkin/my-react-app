@@ -44,17 +44,18 @@ app.listen(port, () => {
 
 //API endpoints go here
 
+
+app.get('/', (req, res) => {
+  res.status(200).send('Server is running');
+});
+
+
 app.options('*', cors()); // Allow preflight requests for all routes
 
 app.use('/auth', authRoutes); // Mount authentication routes under /auth
 app.use('/user', userRoutes); // Mount user routes under /user
 
 // Handle server termination
-
-app.get('/', (req, res) => {
-  res.status(200).send('Server is running');
-});
-
 
 process.on('SIGINT', () => {
   console.log('\nReceived SIGINT (Ctrl-C)');
