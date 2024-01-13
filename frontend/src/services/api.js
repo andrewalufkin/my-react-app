@@ -107,5 +107,14 @@ export const undoReaction = async (userId, postId, reactionType) => {
   }
 };
 
-
+// Function to get posts written by a specific user
+export const fetchUserPosts = async (userId) => {
+  try {
+      const response = await api.get('/user/posts', { params: { userId } });
+      return response.data;
+  } catch (error) {
+      console.error('Error fetching user posts:', error);
+      return [];
+  }
+};
   

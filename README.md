@@ -1,5 +1,10 @@
 This is a simple README to help keep track of progress and work that I want to do on the app!
 
+Recent progress:
+* Added likes and dislikes and undos for posts. Modified posts so that they show the name of the poster. 
+* Added Home page
+* Updated Home Page to fetch user's posts and show them
+
 TODO:
 * Add feed prioritization. Prioritize stuff based on likes, dislikes, user preference, & sentiment value. (Positive sentiment means higher priority.)
 * Add color customization 

@@ -8,10 +8,12 @@ import Dashboard from './DashBoard';
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
 
-  const handleLogIn = (userId) => {
+  const handleLogIn = (userId, username) => {
     setIsLoggedIn(true);
     setUserId(userId);
+    setUsername(username);
   }
 
   const handleLogOut = () => {
@@ -36,7 +38,7 @@ function App() {
         {/* HomePage Route */}
         <Route 
           path="/home"
-          element={isLoggedIn ? <HomePage userId={userId} /> : <Navigate replace to="/" />}
+          element={isLoggedIn ? <HomePage userId={userId} username={username}/> : <Navigate replace to="/" />}
         />
         {/* Redirect any other path to the main page */}
         <Route path="*" element={<Navigate to="/" />} />

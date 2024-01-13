@@ -1,53 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchUserPosts } from './services/api';
 import styles from './HomePage.module.css';
 
-const HomePage = ({ userId }) => {
-  const [profilePic, setProfilePic] = useState(null);
-  const [status, setStatus] = useState('');
-  
+const HomePage = ({ userId, username }) => {
   const navigate = useNavigate();
+  const [profilePicture, setProfilePicture] = useState('');
+  const [aboutMe, setAboutMe] = useState('');
+  const [posts, setPosts] = useState([]);
 
-  const handleStatusChange = (e) => {
-    setStatus(e.target.value);
-  };
+  useEffect(() => {
+    // TODO: Replace with actual API calls for profile picture and about me
+    setProfilePicture('path/to/profilePicture.jpg');
+    setAboutMe('This is about me...');
 
-  const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]);
-  };
+    // Fetch user posts
+    const fetchPosts = async () => {
+      const userPosts = await fetchUserPosts(userId);
+      setPosts(userPosts.posts);
+    };
+
+    fetchPosts();
+  }, [userId]);
+
+  
 
   const handleDashboardButtonClick = () => {
     navigate('/dashboard');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Process and upload data here
-    console.log('Status:', status);
-    console.log('Profile Pic:', profilePic);
-  };
-
   return (
     <div className={styles.homePage}>
-      <h2>Home Page</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Status:
-          <input type="text" value={status} onChange={handleStatusChange} />
-        </label>
-        <br />
-        <label>
-          Profile Picture:
-          <input type="file" onChange={handleProfilePicChange} />
-        </label>
-        <br />
-        <button type="submit">Save Changes</button>
-        <button className={styles.dashboardButton} onClick={handleDashboardButtonClick}>
-        Go to Dashboard
-        </button>
-      </form>
+      <div className={styles.profileCard}>
+        <img src={profilePicture} alt="Profile" className={styles.profilePicture} />
+        <h1>Hello, {username}!</h1>
+        <p className={styles.aboutMe}>{aboutMe}</p>
+        <button className={styles.dashboardButton} onClick={handleDashboardButtonClick}>Go to Dashboard</button>
+      </div>
+      <div className={styles.postsSection}>
+        <p>Your Posts:</p>
+        {posts.map((post, index) => (
+          <div key={index} className={styles.post}>{post.content}</div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default HomePage;
+

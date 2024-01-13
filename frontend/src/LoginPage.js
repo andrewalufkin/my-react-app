@@ -12,7 +12,7 @@ const LoginPage = ({onLogin}) => {
             const response = await loginUser(username, password); // TODO: show errors on the screen somehow
       
             // Handle the response from the server (e.g., save user data to state, show success message, etc.)
-            onLogin(response.userId);
+            onLogin(response.userId, username);
         } catch (error) {
             // Handle errors (e.g., show error messages to the user)
         }

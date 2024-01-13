@@ -231,11 +231,8 @@ router.post('/post/undoReaction', (req, res) => {
     });
 });
 
-
-
-
 router.get('/feed', (req, res) => {
-    const userId = req.query.userId; // Assuming the user's ID is passed as a query parameter
+    const userId = req.query.userId;
     const sql = `
         SELECT 
             posts.*,
@@ -265,6 +262,36 @@ router.get('/feed', (req, res) => {
         res.json({ message: 'Feed fetched successfully', posts });
     });
 });
+
+router.get('/posts', (req, res) => {
+    const userId = req.query.userId; // Getting the user's ID from the query parameter
+    const sql = `
+        SELECT 
+            posts.*,
+            users.username AS authorName,
+            IF(upr.reaction_type = 'like', TRUE, FALSE) AS userLiked,
+            IF(upr.reaction_type = 'dislike', TRUE, FALSE) AS userDisliked,
+            (posts.likes_count - posts.dislikes_count) AS popularityScore
+        FROM posts
+        INNER JOIN users ON posts.user_id = users.id
+        LEFT JOIN user_post_reactions upr ON posts.id = upr.post_id AND upr.user_id = ?
+        WHERE posts.user_id = ?
+        ORDER BY posts.created_at DESC`;
+
+    connection.query(sql, [userId, userId], (error, results) => {
+        if (error) {
+            return res.status(500).json({ message: 'Error fetching user posts', error });
+        }
+        // Process the results to format them as needed
+        const posts = results.map(post => ({
+            ...post,
+            userLiked: post.userLiked ? true : false,
+            userDisliked: post.userDisliked ? true : false
+        }));
+        res.json({ message: 'User posts fetched successfully', posts });
+    });
+});
+
 
 
 module.exports = router;
