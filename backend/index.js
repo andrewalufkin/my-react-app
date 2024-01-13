@@ -27,7 +27,14 @@ app.use(cors({
   credentials: true,
 }));
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back the index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/frontend/build/index.html'));
+});
 
 //Listen on port 8000
 const port = process.env.PORT || 8000 ;
@@ -43,6 +50,11 @@ app.use('/auth', authRoutes); // Mount authentication routes under /auth
 app.use('/user', userRoutes); // Mount user routes under /user
 
 // Handle server termination
+
+app.get('/', (req, res) => {
+  res.status(200).send('Server is running');
+});
+
 
 process.on('SIGINT', () => {
   console.log('\nReceived SIGINT (Ctrl-C)');
